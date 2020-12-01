@@ -6,5 +6,7 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
+  :depends-on ("anaphora")
   :components ((:file "package")
-               (:file "advent-of-code-2020")))
+               (:file "advent-of-code-2020")
+	       (:file "day1")))

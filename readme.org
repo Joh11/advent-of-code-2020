@@ -1,0 +1,6 @@
+#+title: Advent of Code 2020 - Common Lisp
+#+date: <2020-12-01 mar.>
+#+author: Johan Félisaz
+
+
+

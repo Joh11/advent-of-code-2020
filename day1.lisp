@@ -1,4 +1,10 @@
-(in-package #:advent-of-code-2020)
+(defpackage #:aoc2020/1
+  (:use #:cl)
+  (:export
+   #:find-product-entries
+   #:find-three-entries))
+
+(in-package #:aoc2020/1)
 
 (defun load-data-day1 (path)
   (with-open-file (stream path)

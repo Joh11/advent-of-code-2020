@@ -6,14 +6,14 @@
 
 (in-package #:aoc2020/1)
 
-(defun load-data-day1 (path)
+(defun load-data (&optional (path "data/day1.dat"))
   (with-open-file (stream path)
     (loop for line = (read-line stream nil)
 	  while line
 	  collect (parse-integer line))))
 
 (defun find-product-entries ()
-  (let ((entries (load-data-day1 "data/day1.dat"))
+  (let ((entries (load-data))
 	(hash (make-hash-table)))
     ;; Fill the hash table
     (loop for x in entries do
@@ -24,7 +24,7 @@
 	  (return (* x (- 2020 x)))))))
 
 (defun find-three-entries ()
-  (let ((entries (load-data "data/day1.dat"))
+  (let ((entries (load-data))
 	(hash (make-hash-table)))
     ;; Fill the hash table
     (loop for x in entries do

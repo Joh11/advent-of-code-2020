@@ -6,7 +6,7 @@
   :license  "MIT"
   :version "0.0.1"
   :serial t
-  :depends-on ("anaphora" "cl-ppcre")
-  :components ((:file "package")
-               (:file "advent-of-code-2020")
-	       (:file "day1")))
+  :depends-on ("cl-ppcre")
+  :components ((:file "day1")
+	       (:file "day2")
+	       (:file "day3")))

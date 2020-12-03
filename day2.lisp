@@ -1,4 +1,10 @@
-(in-package #:advent-of-code-2020)
+(defpackage #:aoc2020/2
+  (:use #:cl)
+  (:export
+   #:find-product-entries
+   #:find-three-entries))
+
+(in-package #:aoc2020/2)
 
 (defun parse-line (line)
   (let* ((xs (ppcre:split ":" line))
@@ -9,7 +15,7 @@
 	 (char (elt (third ys) 0)))
     `(:min ,min :max ,max :char ,char :password ,password)))
 
-(defun load-data-day2 (path)
+(defun load-data (&optional (path "data/day2.dat"))
   (with-open-file (stream path)
     (loop for line = (read-line stream nil)
 	  while line
@@ -25,11 +31,11 @@
 		    (elt (getf pw :password) (1- (getf pw :max)))))))
 
 (defun count-valid-passwords ()
-  (let ((passwords (load-data-day2 "data/day2.dat")))
+  (let ((passwords (load-data)))
     (loop for pw in passwords
 	  count (valid-passwordp pw))))
 
 (defun count-valid-passwords-v2 ()
-  (let ((passwords (load-data-day2 "data/day2.dat")))
+  (let ((passwords (load-data)))
     (loop for pw in passwords
 	  count (valid-password-v2p pw))))

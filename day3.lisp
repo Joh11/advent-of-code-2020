@@ -15,10 +15,20 @@
 		  (setf (aref arr i j) t))))
       arr)))
 
-(defun count-clashing-trees ()
+(defun count-clashing-trees (&optional (step-right 3) (step-down 1))
   (let* ((map (load-data-day3))
 	 (height (array-dimension map 0))
 	 (width (array-dimension map 1)))
-    (loop for i below height
-	  for j = (rem (* 3 i) width)
+    (loop for k from 1
+	  for i = (* step-down k)
+	  for j = (rem (* step-right k) width)
+	  while (< i height)
 	  count (aref map i j))))
+
+(defun product-clashing-trees ()
+  (reduce #'* (list
+	       (count-clashing-trees 1 1)
+	       (count-clashing-trees 3 1)
+	       (count-clashing-trees 5 1)
+	       (count-clashing-trees 7 1)
+	       (count-clashing-trees 1 2))))

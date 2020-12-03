@@ -1,6 +1,12 @@
-(in-package #:advent-of-code-2020)
+(defpackage #:aoc2020/3
+  (:use #:cl)
+  (:export
+   #:count-clashing-trees
+   #:product-clashing-trees))
 
-(defun load-data-day3 (&optional (path "data/day3.dat"))
+(in-package #:aoc2020/3)
+
+(defun load-data (&optional (path "data/day3.dat"))
   (with-open-file (stream path)
     (let* ((lines (loop for line = (read-line stream nil)
 			while line
@@ -16,7 +22,7 @@
       arr)))
 
 (defun count-clashing-trees (&optional (step-right 3) (step-down 1))
-  (let* ((map (load-data-day3))
+  (let* ((map (load-data))
 	 (height (array-dimension map 0))
 	 (width (array-dimension map 1)))
     (loop for k from 1

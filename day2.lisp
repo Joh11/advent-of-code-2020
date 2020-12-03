@@ -1,8 +1,8 @@
 (defpackage #:aoc2020/2
   (:use #:cl)
   (:export
-   #:find-product-entries
-   #:find-three-entries))
+   #:count-valid-passwords
+   #:count-valid-passwords-v2))
 
 (in-package #:aoc2020/2)
 

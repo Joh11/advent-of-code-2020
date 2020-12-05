@@ -29,9 +29,24 @@
 	    (binary-to-num bin-col))))
 
 (defun highest-seat-id ()
-  (let ((passes (load-data)))
-    (loop for pass in passes
+  (loop for pass in (load-data)
 	  maximize
 	  (multiple-value-bind (r c)
 	      (pass-str-to-seat pass)
-	    (+ (* r 8) c)))))
+	    (+ (* r 8) c))))
+
+(defun find-seat-id ()
+  (let ((passes (load-data))
+	(seats-taken (make-hash-table)))
+    (loop for pass in passes do
+      (let ((id (multiple-value-bind (r c)
+		    (pass-str-to-seat pass)
+		  (+ (* r 8) c))))
+	(setf (gethash id seats-taken) t)))
+    ;; Find an empty seat now
+    (loop for id from 1 to 1022
+	  when (and
+		(not (gethash id seats-taken)) ;; Not taken
+		(gethash (1- id) seats-taken)
+		(gethash (1+ id) seats-taken))
+	    return id)))

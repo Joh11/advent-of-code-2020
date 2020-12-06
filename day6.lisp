@@ -21,6 +21,14 @@
 	    (setf (gethash answer hash) t))
 	finally (return (hash-table-count hash))))
 
-(defun sum-counts ()
+(defun count-all-yes-questions (group)
+  (loop for answer across (car group)
+	when (= 1 (length group))
+	  return (length (car group))
+	count (every (lambda (answers) (member answer (coerce answers 'list))) (cdr group))))
+
+(defun sum-counts (&key everyone)
   (loop for group in (load-data)
-	  sum (count-yes-questions group)))
+	sum (if everyone
+		(count-all-yes-questions group)
+		(count-yes-questions group))))

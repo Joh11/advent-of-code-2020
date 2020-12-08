@@ -1,7 +1,8 @@
 (defpackage #:aoc2020/7
   (:use #:cl)
   (:export
-   ))
+   #:count-can-contain
+   #:count-inside-bags))
 
 (in-package #:aoc2020/7)
 

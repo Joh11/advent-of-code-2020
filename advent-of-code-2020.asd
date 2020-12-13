@@ -6,7 +6,7 @@
   :license  "MIT"
   :version "0.0.1"
   :serial t
-  :depends-on ("cl-ppcre")
+  :depends-on ("cl-ppcre" "simple-graph")
   :components ((:file "day1")
 	       (:file "day2")
 	       (:file "day3")
@@ -15,4 +15,5 @@
 	       (:file "day6")
 	       (:file "day7")
 	       (:file "day8")
-	       (:file "day9")))
+	       (:file "day9")
+	       (:file "day10")))

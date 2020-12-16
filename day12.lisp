@@ -82,3 +82,55 @@
     (loop for i in instrs do
       (setf state (move state i))
 	  finally (return (manhattan-dist state)))))
+
+;; ----------------------------------------------------------------------------
+
+(defun turn-left-v2 (n x-waypoint y-waypoint)
+  (loop while (/= n 0) do
+    (decf n 90)
+    (psetf x-waypoint (* -1 y-waypoint)
+	   y-waypoint x-waypoint))
+  (values x-waypoint y-waypoint))
+
+(defun turn-right-v2 (n x-waypoint y-waypoint)
+  (loop while (/= n 0) do
+    (decf n 90)
+    (psetf x-waypoint y-waypoint
+	   y-waypoint (* -1 x-waypoint)))
+  (values x-waypoint y-waypoint))
+
+(defun move-forward-v2 (state n)
+  (loop for i below n do
+    (incf (first state) (third state))
+    (incf (second state) (fourth state)))
+  (values (first state) (second state)))
+
+(defun move-v2 (state instruction)
+  (let ((x (first state))
+	(y (second state))
+	(x-waypoint (third state))
+	(y-waypoint (fourth state))
+	(i (first instruction))
+	(n (second instruction)))
+    (case i
+      (:north (incf y-waypoint n))
+      (:south (decf y-waypoint n))
+      (:east (incf x-waypoint n))
+      (:west (decf x-waypoint n))
+      (:left (multiple-value-setq (x-waypoint y-waypoint)
+	       (turn-left-v2 n x-waypoint y-waypoint)))
+      (:right (multiple-value-setq (x-waypoint y-waypoint)
+	       (turn-right-v2 n x-waypoint y-waypoint)))
+      (:forward (multiple-value-setq (x y)
+		  (move-forward-v2 state n))))
+    (make-waypoint-state x y x-waypoint y-waypoint)))
+
+(defun make-waypoint-state (x y x-waypoint y-waypoint)
+  (list x y x-waypoint y-waypoint))
+
+(defun compute-final-position-with-waypoint ()
+  (let ((instrs (load-data))
+	(state (make-waypoint-state 0 0 10 1)))
+    (loop for i in instrs do
+      (setf state (move-v2 state i))
+	  finally (return (manhattan-dist state)))))
